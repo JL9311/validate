@@ -14,6 +14,9 @@ class Person:
         self.age = age
         self.phone = phone
 
+    def __str__(self):
+        return "name: %s, age: %s, phone: %s" % (self.name, self.age, self.phone)
+
 
 if __name__ == '__main__':
     person1 = Person("张", 115, '188888888888')
@@ -30,4 +33,12 @@ if __name__ == '__main__':
 
     person4 = Person("张三", 15, '18888888888')
     DataValidated.validate(person4)
-    DataValidated.validate(person1)
+    # DataValidated.validate(person1)
+
+    json_string = '{"name": "张三", "age": 15, "phone": "18888888888"}'
+    res, item, msg, obj = DataValidated.validate_json(json_string, Person)
+    print(res, item, msg, obj, "\n")
+
+    query_string = 'name=张三&age=15'
+    res, item, msg, obj = DataValidated.validate_query_string(query_string, Person)
+    print(res, item, msg, obj, "\n")
